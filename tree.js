@@ -21,7 +21,7 @@ export default function Tree (arr) {
 
         let mid = Math.floor((start + end) / 2);
         let root = Node(arr[mid]);
-        root.left = createBST(arr, start, mid-1);
+        root.left = createBST(arr, start, mid - 1);
         root.right = createBST(arr, mid + 1, end);
 
         return root;
