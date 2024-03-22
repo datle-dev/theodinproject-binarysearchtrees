@@ -28,6 +28,11 @@ export default function Tree (arr) {
     };
 
     const insert = (value) => {
+        if (find(value) != null) {
+            console.log(`${value} already exists in tree`)
+            return;
+        }
+
         let currentNode = rootNode;
 
         while (!isLeaf(currentNode)) {
