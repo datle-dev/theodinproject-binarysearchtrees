@@ -36,7 +36,9 @@ export default function Tree (arr) {
             } else if (currentNode.left != null && currentNode.right == null) {
                 currentNode = currentNode.left;
             } else {
-                if (value < currentNode.data) {
+                if (value == currentNode.data) {
+                    return;
+                } else if (value < currentNode.data) {
                     currentNode = currentNode.left;
                 } else {
                     currentNode = currentNode.right;
@@ -44,7 +46,9 @@ export default function Tree (arr) {
             }
         }
 
-        if (value < currentNode.data) {
+        if (value == currentNode.data) {
+            return;
+        } else if (value < currentNode.data) {
             currentNode.left = Node(value);
         } else {
             currentNode.right = Node(value);
