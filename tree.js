@@ -27,6 +27,38 @@ export default function Tree (arr) {
         return root;
     };
 
+    const insert = (value) => {
+        let currentNode = rootNode;
+
+        while (!isLeaf(currentNode)) {
+            if (currentNode.left == null && currentNode.right != null) {
+                currentNode = currentNode.right;
+            } else if (currentNode.left != null && currentNode.right == null) {
+                currentNode = currentNode.left;
+            } else {
+                if (value < currentNode.data) {
+                    currentNode = currentNode.left;
+                } else {
+                    currentNode = currentNode.right;
+                }
+            }
+        }
+        
+        if (value < currentNode.data) {
+            currentNode.left = Node(value);
+        } else {
+            currentNode.right = Node(value);
+        }
+    };
+
+    const isLeaf = (node) => {
+        if (node.left == null && node.right == null) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -45,5 +77,6 @@ export default function Tree (arr) {
     return {
         root,
         prettyPrint,
+        insert,
     };
 }
