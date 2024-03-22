@@ -51,6 +51,23 @@ export default function Tree (arr) {
         }
     };
 
+    const find = (value) => {
+        let currentNode = rootNode;
+
+        while (value != currentNode.data) {
+            if (isLeaf(currentNode)) {
+                return null;
+            }
+            if (value < currentNode.data) {
+                currentNode = currentNode.left;
+            } else {
+                currentNode = currentNode.right;
+            }
+        }
+
+        return currentNode;
+    };
+
     const isLeaf = (node) => {
         if (node.left == null && node.right == null) {
             return true;
@@ -78,5 +95,6 @@ export default function Tree (arr) {
         root,
         prettyPrint,
         insert,
+        find,
     };
 }
