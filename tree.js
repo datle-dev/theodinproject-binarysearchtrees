@@ -55,6 +55,70 @@ export default function Tree (arr) {
         }
     };
 
+    const deleteItem = (value) => {
+        let parentNode = null;
+        let currentNode = rootNode;
+
+        // root node case
+        if (value == currentNode.data) {
+            console.log('deleting root (skip for now)')
+            return;
+        }
+
+        // for all other cases, find node while keeping track
+        // of its parent
+        while (value != currentNode.data) {
+            if (isLeaf(currentNode)) {
+                console.log('not found')
+                return;
+            }
+            if (value < currentNode.data) {
+                parentNode = currentNode;
+                currentNode = currentNode.left;
+            } else {
+                parentNode = currentNode;
+                currentNode = currentNode.right;
+            }
+        }
+
+        console.log('target node to delete found')
+        console.log('parent')
+        console.log(parentNode.data)
+        console.log('current')
+        console.log(currentNode.data)
+
+        if (isLeaf(currentNode)) {
+            console.log('current node')
+            console.log(currentNode)
+            if (parentNode.left != null) {
+                console.log(`left=${parentNode.left.data}`)
+                console.log(parentNode.left)
+            }
+            if (parentNode.right != null) {
+                console.log(`right=${parentNode.right.data}`)
+                console.log(parentNode.right)
+            }
+            if (currentNode == parentNode.left) {
+                parentNode.left = null;
+            } else {
+                parentNode.right = null;
+            }
+            return;
+        }
+
+        if (isParentOfSingleChild(currentNode)) {
+            console.log('parent of single child')
+            if (parentNode.left == currentNode) {
+                parentNode.left = getChild(currentNode);
+            } else {
+                parentNode.right = getChild(currentNode);
+            }
+            return;
+        }
+
+
+    };
+
     const find = (value) => {
         let currentNode = rootNode;
 
@@ -80,6 +144,24 @@ export default function Tree (arr) {
         }
     };
 
+    const isParentOfSingleChild = (node) => {
+        if (node.left == null && node.right != null) {
+            return true;
+        } else if (node.left != null && node.right == null) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const getChild = (node) => {
+        if (node.left == null) {
+            return node.right;
+        } else {
+            return node.left;
+        }
+    };
+
     const prettyPrint = (node, prefix = "", isLeft = true) => {
         if (node === null) {
           return;
@@ -99,6 +181,7 @@ export default function Tree (arr) {
         root,
         prettyPrint,
         insert,
+        deleteItem,
         find,
     };
 }
