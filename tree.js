@@ -48,7 +48,7 @@ export default function Tree (arr) {
                 }
             }
         }
-        
+
         if (value < currentNode.data) {
             currentNode.left = Node(value);
         } else {
