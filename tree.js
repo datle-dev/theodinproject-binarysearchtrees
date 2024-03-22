@@ -109,9 +109,9 @@ export default function Tree (arr) {
         if (isParentOfSingleChild(currentNode)) {
             console.log('parent of single child')
             if (parentNode.left == currentNode) {
-                parentNode.left = getChild(currentNode);
+                parentNode.left = getSingleChild(currentNode);
             } else {
-                parentNode.right = getChild(currentNode);
+                parentNode.right = getSingleChild(currentNode);
             }
             return;
         }
@@ -154,7 +154,7 @@ export default function Tree (arr) {
         }
     };
 
-    const getChild = (node) => {
+    const getSingleChild = (node) => {
         if (node.left == null) {
             return node.right;
         } else {
