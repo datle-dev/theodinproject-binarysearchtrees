@@ -1,6 +1,3 @@
-export default function Node () {
-    let value = null;
-    let left = null;
-    let right = null;
-    return {value, left, right};
+export default function Node (data, left=null, right=null) {
+    return {data, left, right};
 }
