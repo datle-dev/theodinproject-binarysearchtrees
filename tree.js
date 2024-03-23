@@ -130,6 +130,41 @@ export default function Tree (arr) {
         return currentNode;
     };
 
+    const levelOrder = (callback = null) => {
+        let queue = [];
+        let currentNode = rootNode;
+
+        queue.push(currentNode);
+
+        while (queue.length > 0) {
+            currentNode = queue.shift();
+            callback(currentNode);
+            if (currentNode.left != null) {
+                queue.push(currentNode.left);
+            }
+            if (currentNode.right != null) {
+                queue.push(currentNode.right);
+            }
+        }
+    };
+
+    const levelOrderRecursive = (queue, callback) => {
+        if (queue.length == 0) {
+            return;
+        }
+        let childQueue = [];
+        for (let currentNode of queue) {
+            callback(currentNode);
+            if (currentNode.left != null) {
+                childQueue.push(currentNode.left);
+            }
+            if (currentNode.right != null) {
+                childQueue.push(currentNode.right);
+            }
+        }
+        levelOrderRecursive(childQueue, callback);
+    }
+
     const isLeaf = (node) => {
         if (node.left == null && node.right == null) {
             return true;
@@ -177,5 +212,7 @@ export default function Tree (arr) {
         insert,
         deleteItem,
         find,
+        levelOrder,
+        levelOrderRecursive,
     };
 }
