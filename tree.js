@@ -165,6 +165,33 @@ export default function Tree (arr) {
         levelOrderRecursive(childQueue, callback);
     }
 
+    const inOrder = (node) => {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        console.log(node.data);
+        inOrder(node.right);
+    };
+
+    const preOrder = (node) => {
+        if (node == null) {
+            return;
+        }
+        console.log(node.data)
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+    const postOrder = (node) => {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        console.log(node.data)
+    }
+
     const isLeaf = (node) => {
         if (node.left == null && node.right == null) {
             return true;
@@ -214,5 +241,8 @@ export default function Tree (arr) {
         find,
         levelOrder,
         levelOrderRecursive,
+        inOrder,
+        preOrder,
+        postOrder,
     };
 }
