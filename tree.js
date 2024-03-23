@@ -59,19 +59,12 @@ export default function Tree (arr) {
         let parentNode = null;
         let currentNode = rootNode;
 
-        // root node case
-        if (value == currentNode.data) {
-            console.log('deleting root (skip for now)')
-            return;
-        }
-
-        // for all other cases, find node while keeping track
-        // of its parent
+        // find node to delete while keeping track of its parent
         while (value != currentNode.data) {
             if (isLeaf(currentNode)) {
-                console.log('not found')
                 return;
             }
+
             if (value < currentNode.data) {
                 parentNode = currentNode;
                 currentNode = currentNode.left;
@@ -81,23 +74,8 @@ export default function Tree (arr) {
             }
         }
 
-        console.log('target node to delete found')
-        console.log('parent')
-        console.log(parentNode.data)
-        console.log('current')
-        console.log(currentNode.data)
-
+        // leaf case
         if (isLeaf(currentNode)) {
-            console.log('current node')
-            console.log(currentNode)
-            if (parentNode.left != null) {
-                console.log(`left=${parentNode.left.data}`)
-                console.log(parentNode.left)
-            }
-            if (parentNode.right != null) {
-                console.log(`right=${parentNode.right.data}`)
-                console.log(parentNode.right)
-            }
             if (currentNode == parentNode.left) {
                 parentNode.left = null;
             } else {
@@ -106,8 +84,8 @@ export default function Tree (arr) {
             return;
         }
 
+        // single child case
         if (isParentOfSingleChild(currentNode)) {
-            console.log('parent of single child')
             if (parentNode.left == currentNode) {
                 parentNode.left = getSingleChild(currentNode);
             } else {
@@ -116,7 +94,23 @@ export default function Tree (arr) {
             return;
         }
 
+        // two children case (including root)
+        let successorParent = currentNode;
+        let successor = currentNode.right;
 
+        while (successor.left != null) {
+            successorParent = successor;
+            successor = successor.left;
+        }
+
+        if (successorParent != currentNode) {
+            successorParent.left = successor.right;
+        } else {
+            successorParent.right = successor.right;
+        }
+
+        currentNode.data = successor.data;
+        return;
     };
 
     const find = (value) => {
