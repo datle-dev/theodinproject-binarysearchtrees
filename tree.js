@@ -192,6 +192,37 @@ export default function Tree (arr) {
         console.log(node.data)
     }
 
+    const height = (node) => {
+        if (node == null) {
+            return -1;
+        }
+        let heightLeft = height(node.left);
+        let heightRight = height(node.right);
+        return Math.max(heightLeft, heightRight) + 1;
+    }
+
+    const depth = (node) => {
+        const calc = (currentNode, currentDepth) => {
+            if (currentNode == null) {
+                return 0;
+            }
+            if (currentNode == node) {
+                return 1;
+            }
+            if (node.data < currentNode.data) {
+                currentDepth = calc(currentNode.left);
+            } else {
+                currentDepth = calc(currentNode.right);
+            }
+            if (currentDepth > 0) {
+                return currentDepth + 1;
+            } else {
+                return 0;
+            }
+        }
+        return calc(rootNode, 0) - 1;
+    }
+
     const isLeaf = (node) => {
         if (node.left == null && node.right == null) {
             return true;
@@ -244,5 +275,7 @@ export default function Tree (arr) {
         inOrder,
         preOrder,
         postOrder,
+        height,
+        depth,
     };
 }
