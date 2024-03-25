@@ -281,6 +281,14 @@ export default function Tree (arr) {
         }
     };
 
+    const rebalance = () => {
+        let arr = [];
+        inOrder(root(), (node) => {
+            arr.push(node.data)
+        });
+        buildTree(arr);
+    };
+
     const getSingleChild = (node) => {
         if (node.left == null) {
             return node.right;
@@ -318,5 +326,6 @@ export default function Tree (arr) {
         height,
         depth,
         isBalanced,
+        rebalance,
     };
 }
