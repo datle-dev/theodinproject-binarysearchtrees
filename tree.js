@@ -165,31 +165,43 @@ export default function Tree (arr) {
         levelOrderRecursive(childQueue, callback);
     }
 
-    const inOrder = (node) => {
+    const inOrder = (node, callback = null) => {
         if (node == null) {
             return;
         }
-        inOrder(node.left);
-        console.log(node.data);
-        inOrder(node.right);
+        inOrder(node.left, callback);
+        if (callback == null) {
+            console.log(node.data);
+        } else {
+            callback(node);
+        }
+        inOrder(node.right, callback);
     };
 
-    const preOrder = (node) => {
+    const preOrder = (node, callback = null) => {
         if (node == null) {
             return;
         }
-        console.log(node.data)
-        preOrder(node.left);
-        preOrder(node.right);
+        if (callback == null) {
+            console.log(node.data);
+        } else {
+            callback(node);
+        }
+        preOrder(node.left, callback);
+        preOrder(node.right, callback);
     }
 
-    const postOrder = (node) => {
+    const postOrder = (node, callback = null) => {
         if (node == null) {
             return;
         }
-        postOrder(node.left);
-        postOrder(node.right);
-        console.log(node.data)
+        postOrder(node.left, callback);
+        postOrder(node.right, callback);
+        if (callback == null) {
+            console.log(node.data);
+        } else {
+            callback(node);
+        }
     }
 
     const height = (node) => {
