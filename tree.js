@@ -223,6 +223,34 @@ export default function Tree (arr) {
         return calc(rootNode, 0) - 1;
     }
 
+    const isBalanced = () => {
+        let heightDiff;
+        let maxHeightDiff = 0;
+        let heightLeft;
+        let heightRight;
+
+        levelOrderRecursive([root()], (node) => {
+            if (node.left && node.right == null) {
+                heightLeft = height(node.left);
+                heightRight = 0;
+            } else if (node.left == null && node.right) {
+                heightLeft = 0;
+                heightRight = height(node.right);
+            } else if (node.left && node.right) {
+                heightLeft = height(node.left);
+                heightRight = height(node.right);
+            }
+            heightDiff = Math.abs(heightLeft - heightRight);
+            maxHeightDiff = Math.max(heightDiff, maxHeightDiff);
+        });
+
+        if (maxHeightDiff > 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const isLeaf = (node) => {
         if (node.left == null && node.right == null) {
             return true;
@@ -277,5 +305,6 @@ export default function Tree (arr) {
         postOrder,
         height,
         depth,
+        isBalanced,
     };
 }
